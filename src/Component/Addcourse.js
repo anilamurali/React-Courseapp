@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Nav from './Nav'
 
@@ -8,8 +9,19 @@ const Addcourse = () => {
     var [venue,setVenue]=useState("")
     var [date,setDate]=useState("")
     const changeData=()=>{
-        const data={"ctitle":ctitle,"duration":duration,"description":des,"venue":venue,"date":date}
+        const data={"courseTitle":ctitle,"courseDuration":duration,"courseDescription":des,"courseVenue":venue,"dacourseDatete":date}
         console.log(data)
+        axios.post("https://mylinkurcodesapp.herokuapp.com/addcourse",data).then(
+            (response)=>{
+                console.log(response.data)
+                if(response.data.status=="success"){
+                    alert("Successfully Added")
+                }
+                else{
+                    alert("Something went Wrong!")
+                }
+            }
+        )
     }
   return (
     <div>
@@ -36,7 +48,7 @@ const Addcourse = () => {
             </div>
             <div class="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
               <label for="" class="form-label">Date</label>
-              <input onChange={(e)=>{setDate(e.target.value)}} type="text" class="form-control"/>
+              <input onChange={(e)=>{setDate(e.target.value)}} type="date" class="form-control"/>
           </div>
                 
                 <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">

@@ -4,10 +4,12 @@ import Nav from './Nav'
 
 const Viewcourse = () => {
     var [viewalist,setViewlist]=useState([])
+    var [loadstatus,setLoadstatus]=useState(true)
     axios.get("https://mylinkurcodesapp.herokuapp.com/getcourses").then(
         (response)=>{
             console.log(response.data)
             setViewlist(response.data)
+            setLoadstatus(false)
 
         }
     )
@@ -33,21 +35,26 @@ const Viewcourse = () => {
        
       </tr>
     </thead>
+    {loadstatus ? <div class="spinner-border" role="status">
+  <span class="sr-only">Loading...</span>
+</div>:
     <tbody>
-                {
-                    viewalist.map((value,key)=>{
-                        return <tr>
-                                        <th><p class="card-text">{value.courseTitle}</p></th>
-                                        <td><p class="card-text">{value.courseDescription}</p></td>
-                                        <td><p class="card-text">{value.courseDuration}</p></td>
-                                        <td><p class="card-text">{value.courseVenue}</p></td>
-                                        <td><p class="card-text">{value.courseDate}</p></td>
+    {
+        viewalist.map((value,key)=>{
+            return <tr>
+                            <th><p class="card-text">{value.courseTitle}</p></th>
+                            <td><p class="card-text">{value.courseDescription}</p></td>
+                            <td><p class="card-text">{value.courseDuration}</p></td>
+                            <td><p class="card-text">{value.courseVenue}</p></td>
+                            <td><p class="card-text">{value.courseDate}</p></td>
 
-                                        </tr>     
-                    
-                    })}
-                    </tbody>
-                                </table>
+                            </tr>     
+        
+        })}
+        </tbody>
+
+    }
+                              </table>
             </div>
         </div>
     </div>
