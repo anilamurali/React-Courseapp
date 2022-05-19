@@ -1,8 +1,16 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Nav from './Nav'
 
 const Viewcourse = () => {
-    var viewall=[{"_id":"6285a2a31887dc001619415c","courseTitle":"Python Django Internship","courseDescription":"Internship programme","courseDuration":"3 months","courseVenue":"ONLINE","courseDate":"02/01/2023"},{"_id":"6285a2c21887dc001619415d","courseTitle":"MERN Stack","courseDescription":"Internship programme","courseDuration":"6 months","courseVenue":"ONLINE","courseDate":"02/06/2022"}]
+    var [viewalist,setViewlist]=useState([])
+    axios.get("https://mylinkurcodesapp.herokuapp.com/getcourses").then(
+        (response)=>{
+            console.log(response.data)
+            setViewlist(response.data)
+
+        }
+    )
   return (
     <div>
         <Nav/>
@@ -10,10 +18,10 @@ const Viewcourse = () => {
 
     
         <div class="container">
-    <div class="row">
+    <div class="row ">
         <div class="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
             
-            <table class="table table-success table-striped" >
+            <table class="table table-info table-striped" >
             <thead>
       <tr>
         
@@ -27,7 +35,7 @@ const Viewcourse = () => {
     </thead>
     <tbody>
                 {
-                    viewall.map((value,key)=>{
+                    viewalist.map((value,key)=>{
                         return <tr>
                                         <th><p class="card-text">{value.courseTitle}</p></th>
                                         <td><p class="card-text">{value.courseDescription}</p></td>
